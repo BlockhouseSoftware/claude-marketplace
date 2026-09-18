@@ -26,4 +26,4 @@ Only tags are used as `ref`; branches are never release artifacts.
 
 ## License
 
-This catalog is licensed under the terms in `LICENSE`. Each plugin carries its own license, stated in its catalog entry.
+This catalog (the `marketplace.json` and this README) is MIT licensed; see `LICENSE`. Each plugin carries its own license, stated in its catalog entry — Trojaino is AGPL-3.0-only.
