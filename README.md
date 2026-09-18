@@ -1,21 +1,29 @@
-# Blockhouse Tools Marketplace
+# Blockhouse Software Marketplace
 
-Public Claude Code marketplace for Blockhouse tools.
+The Claude Code plugin catalog for [Blockhouse Software](https://github.com/BlockhouseSoftware). Each plugin is pulled from its own product repository at a release tag; nothing is vendored here.
 
-## Install the catalog
-
-```text
-claude plugin marketplace add BlockhouseSoftware/trojaino-marketplace
-```
-
-## Install Trojaino
+## Add the catalog
 
 ```text
-claude plugin install trojaino@blockhouse-tools
+claude plugin marketplace add BlockhouseSoftware/claude-marketplace
 ```
 
-Trojaino is experimental and installs **disabled by default**. Marketplace installation provides an inert catalog plugin; it does not itself activate inspection protection. Do not enable or configure a copied Marketplace package as a substitute for the separate reviewed local setup path.
+## Plugins
 
-Native Windows 11 / ordinary-account acceptance and Sig’s independent easy-install journey remain release gates.
+| Plugin | Install | Source |
+| --- | --- | --- |
+| **Trojaino** — experimental Claude Code inspection-session preflight. Installs disabled; requires explicit local runtime setup. | `claude plugin install trojaino@blockhouse-software` | [BlockhouseSoftware/trojaino](https://github.com/BlockhouseSoftware/trojaino) `plugins/trojaino` @ `v0.2.0` |
 
-Published package source: [`BlockhouseSoftware/trojaino`](https://github.com/BlockhouseSoftware/trojaino) commit `bbf1c29e3e67bb0aa60191f16e66321f2637d0e2`.
+Trojaino's marketplace copy is inert by design: it ships without active hooks, and protection comes from the separately prepared personal plugin described in [its documentation](https://github.com/BlockhouseSoftware/trojaino/blob/main/docs/personal-plugin-delivery.md). Installing the catalog does not enable protection.
+
+## Releasing a plugin update
+
+1. Tag a release in the plugin's repository.
+2. Bump `ref` for that plugin in `.claude-plugin/marketplace.json` and run `claude plugin validate .`.
+3. Merge to `main`. Users pick up the new pin with `claude plugin marketplace update blockhouse-software` followed by `claude plugin update <plugin>@blockhouse-software`.
+
+Only tags are used as `ref`; branches are never release artifacts.
+
+## License
+
+This catalog is licensed under the terms in `LICENSE`. Each plugin carries its own license, stated in its catalog entry.
