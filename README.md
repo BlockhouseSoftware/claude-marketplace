@@ -19,10 +19,18 @@ Trojaino's marketplace copy is inert by design: it ships without active hooks, a
 ## Releasing a plugin update
 
 1. Tag a release in the plugin's repository.
-2. Bump `ref` for that plugin in `.claude-plugin/marketplace.json` and run `claude plugin validate .`.
-3. Merge to `main`. Users pick up the new pin with `claude plugin marketplace update blockhouse-software` followed by `claude plugin update <plugin>@blockhouse-software`.
+2. Bump `ref` for that plugin in `.claude-plugin/marketplace.json`.
+3. Open a pull request. CI runs `scripts/check_catalog.py`, which fetches the pinned
+   tag from the plugin's own repository and fails if the catalog advertises a version,
+   licence, description, homepage or repository the release does not actually carry —
+   including the case where `ref` points at the wrong release.
+4. Merge to `main`. Users pick up the new pin with `claude plugin marketplace update blockhouse-software`
+   followed by `claude plugin update <plugin>@blockhouse-software`.
 
-Only tags are used as `ref`; branches are never release artifacts.
+Only release tags are accepted as `ref`; a branch name is rejected, because a branch is
+not an immutable release. Run `python scripts/check_catalog.py` locally before pushing,
+or `--offline` to skip the network fetch. `claude plugin validate .` remains a useful
+extra check against the CLI's own schema.
 
 ## License
 
