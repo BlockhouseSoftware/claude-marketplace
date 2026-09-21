@@ -12,7 +12,7 @@ claude plugin marketplace add BlockhouseSoftware/claude-marketplace
 
 | Plugin | Install | Source |
 | --- | --- | --- |
-| **Trojaino** — experimental Claude Code inspection-session preflight. Installs disabled; requires explicit local runtime setup. | `claude plugin install trojaino@blockhouse-software` | [BlockhouseSoftware/trojaino](https://github.com/BlockhouseSoftware/trojaino) `plugins/trojaino` @ `v0.2.0` |
+| **Trojaino** — experimental Claude Code inspection-session preflight. Installs disabled; protection comes from `tjscan setup` (see the plugin README). | `claude plugin install trojaino@blockhouse-software` | [BlockhouseSoftware/trojaino](https://github.com/BlockhouseSoftware/trojaino) `plugins/trojaino` @ `v0.3.0` |
 
 Trojaino's marketplace copy is inert by design: it ships without active hooks, and protection comes from the separately prepared personal plugin described in [its documentation](https://github.com/BlockhouseSoftware/trojaino/blob/main/docs/personal-plugin-delivery.md). Installing the catalog does not enable protection.
 
