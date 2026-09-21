@@ -15,13 +15,17 @@
         "path": "plugins/trojaino",
         "ref": "v0.3.0"
       },
-      "defaultEnabled": false,
       "displayName": "Trojaino",
-      "description": "Experimental, disabled-by-default Claude Code inspection-session preflight. Requires explicit local runtime setup. Not a universal execution firewall.",
+      "description": "Install gate for Claude Code. Scans each npm, PyPI, GitHub or plugin source before Claude installs it, pins clean packages to the scanned version, and asks you about anything it cannot clear.",
       "homepage": "https://github.com/BlockhouseSoftware/trojaino",
       "repository": "https://github.com/BlockhouseSoftware/trojaino",
       "license": "AGPL-3.0-only",
-      "tags": ["security", "preflight", "source-inspection"]
+      "tags": [
+        "security",
+        "install-gate",
+        "supply-chain",
+        "mcp"
+      ]
     }
   ]
 }
