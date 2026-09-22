@@ -1,22 +1,31 @@
 {
-  "name": "blockhouse-tools",
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "blockhouse-software",
   "owner": {
     "name": "Blockhouse Software",
     "url": "https://github.com/BlockhouseSoftware"
   },
-  "description": "Reviewed experimental safety tools for native Claude Code.",
+  "description": "Blockhouse Software's Claude Code plugins. Reviewed, experimental safety tooling for native Claude Code.",
   "plugins": [
     {
       "name": "trojaino",
-      "source": "./plugins/trojaino",
-      "version": "0.1.6",
-      "defaultEnabled": false,
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/BlockhouseSoftware/trojaino.git",
+        "path": "plugins/trojaino",
+        "ref": "v0.3.0"
+      },
       "displayName": "Trojaino",
-      "description": "Experimental, disabled-by-default Claude Code inspection-session preflight. Requires explicit local runtime setup. Not a universal execution firewall.",
+      "description": "Install gate for Claude Code. Scans each npm, PyPI, GitHub or plugin source before Claude installs it, pins clean packages to the scanned version, and asks you about anything it cannot clear.",
       "homepage": "https://github.com/BlockhouseSoftware/trojaino",
       "repository": "https://github.com/BlockhouseSoftware/trojaino",
       "license": "AGPL-3.0-only",
-      "tags": ["security", "preflight", "source-inspection"]
+      "tags": [
+        "security",
+        "install-gate",
+        "supply-chain",
+        "mcp"
+      ]
     }
   ]
 }
