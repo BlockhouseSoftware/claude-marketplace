@@ -13,7 +13,8 @@
         "source": "git-subdir",
         "url": "https://github.com/BlockhouseSoftware/trojaino.git",
         "path": "plugins/trojaino",
-        "ref": "v0.3.0"
+        "ref": "v0.3.0",
+        "sha": "cb92cc9cc57407979dae9362cd67731bf23a2a22"
       },
       "displayName": "Trojaino",
       "description": "Install gate for Claude Code. Scans each npm, PyPI, GitHub or plugin source before Claude installs it, pins clean packages to the scanned version, and asks you about anything it cannot clear.",

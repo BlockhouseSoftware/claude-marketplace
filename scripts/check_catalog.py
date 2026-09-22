@@ -20,7 +20,7 @@ import tempfile
 from typing import Any
 
 KEBAB = re.compile(r"[a-z0-9]+(?:-[a-z0-9]+)*")
-# Only an immutable release tag may be published. A branch is not a release.
+# Release tags name versions; a separate full commit SHA supplies the immutable pin.
 RELEASE_TAG = re.compile(r"v(\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?)")
 # Names Claude Code reserves, plus package-manager names it refuses.
 RESERVED = {
@@ -72,7 +72,12 @@ def fetch_manifest(source: dict[str, Any], timeout: int) -> dict[str, Any]:
         # A tag ref is fetched by its full refs/tags/ name so a same-named
         # branch on the remote can never be substituted for it.
         git("fetch", "-q", "--depth", "1", "origin", f"refs/tags/{ref}:refs/tags/{ref}")
-        return strict_load(git("show", f"refs/tags/{ref}:{manifest_path}").decode("utf-8"))
+        tagged = git("rev-parse", f"refs/tags/{ref}^{{commit}}").decode().strip()
+        sha = source["sha"]
+        if tagged != sha:
+            raise ValueError(f"release tag {ref} resolves to {tagged}, not catalog SHA {sha}")
+        # Read the effective installed revision, not just a similarly named tag.
+        return strict_load(git("show", f"{sha}:{manifest_path}").decode("utf-8"))
 
 
 def check_entry(entry: dict[str, Any], errors: list[str], online: bool, timeout: int) -> None:
@@ -98,9 +103,10 @@ def check_entry(entry: dict[str, Any], errors: list[str], online: bool, timeout:
     ref = str(source.get("ref", ""))
     tag = RELEASE_TAG.fullmatch(ref)
     if not tag:
-        bad(f"ref {ref!r} is not an immutable release tag (expected vMAJOR.MINOR.PATCH)")
-    if "sha" in source and not re.fullmatch(r"[0-9a-f]{40}", str(source["sha"])):
-        bad("sha must be a full 40-character lowercase commit id")
+        bad(f"ref {ref!r} is not a release tag (expected vMAJOR.MINOR.PATCH)")
+    valid_sha = re.fullmatch(r"[0-9a-f]{40}", str(source.get("sha", "")))
+    if not valid_sha:
+        bad("sha is required and must be a full 40-character lowercase commit id")
 
     url = repo_url(source)
     if not url.startswith("https://"):
@@ -117,7 +123,7 @@ def check_entry(entry: dict[str, Any], errors: list[str], online: bool, timeout:
     if entry.get("defaultEnabled") not in (None, False, True):
         bad("defaultEnabled must be a boolean")
 
-    if not online or not tag:
+    if not online or not tag or not valid_sha:
         return
 
     try:
