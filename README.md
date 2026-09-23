@@ -13,7 +13,7 @@ Inside **Claude Code 2.1.274 or newer**, run:
 
 Trojaino needs **Python 3.11+ available as `python3`**. No pip installation or prepared personal plugin is needed. The plugin ships active SessionStart and PreToolUse hooks.
 
-The current catalog release is 0.3.0. For that release, restart Claude and check for hook errors; `/hooks` alone does not prove Python can run. Starting with **0.3.1**, restart Claude and run **`/trojaino:doctor`**. It reports **Ready** or explains what needs attention, including old prepared-plugin hooks. In 0.3.1, a native launcher also reports missing or outdated Python with setup instructions; doctor can diagnose that without Python. These checks run at startup, so an installed/enabled listing alone does not mean Trojaino is checking installations. See [installation, prerequisites and migration](https://github.com/BlockhouseSoftware/trojaino/blob/main/docs/plugin-installation.md).
+After installing, restart Claude and run **`/trojaino:doctor`**. It reports **Ready** or explains what needs attention, including old prepared-plugin hooks. A native launcher also reports missing or outdated Python with setup instructions; doctor can diagnose that without Python. These checks run at startup, so an installed/enabled listing alone does not mean Trojaino is checking installations. See [installation, prerequisites and migration](https://github.com/BlockhouseSoftware/trojaino/blob/main/docs/plugin-installation.md).
 
 Trojaino checks named npm, Python, GitHub and plugin sources before Claude installs them. Unscannable sources require your approval. Only named packages are scanned, not dependencies. A clean static scan is not a safety guarantee.
 
@@ -28,7 +28,7 @@ Inside Claude Code:
 /plugin update trojaino@blockhouse-software
 ```
 
-Restart Claude. On 0.3.1 or newer, run `/trojaino:doctor` again. This replaces the obsolete prepared-plugin delivery workflow.
+Restart Claude and run `/trojaino:doctor` again. This replaces the obsolete prepared-plugin delivery workflow.
 
 ## Releasing a plugin update
 
